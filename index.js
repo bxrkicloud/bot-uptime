@@ -1,7 +1,6 @@
-require('dotenv').config(); // dotenv paketini dahil et
 const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
 
-// .env dosyasından tokenları al
+// Render paneline girip bu değişkenleri tanımlamalısın:
 const tokens = [
     process.env.TOKEN_1,
     process.env.TOKEN_2,
@@ -30,6 +29,11 @@ const statusList = [
 ];
 
 tokens.forEach((token, index) => {
+    if (!token) {
+        console.warn(`TOKEN_${index + 1} tanımlanmamış! Render Environment'a eklemelisin.`);
+        return;
+    }
+
     const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
     client.once('ready', () => {
